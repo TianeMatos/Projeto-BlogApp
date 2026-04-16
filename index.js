@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const config = require('./src/config/config');
-const errorHandler = require('./src/middleware/errorHandler');
 
 // Get DB
 const connectDB = require('./src/config/database');
@@ -12,7 +11,7 @@ connectDB();
 // User Model
 // const User = require('./src/model/User');
 const userRouter = require('./src/routes/user');
-const authRouter = require('./src/routes/auth');
+const authRouter = require('./src/routes/authentication');
 const postRouter = require('./src/routes/post');
 const commentRouter = require('./src/routes/comment');
 
@@ -39,8 +38,7 @@ app.get('/', (req, res) => {
 
 // Routes Users
 app.use('/', authRouter)
-app.use('/users', userRouter);
+app.use('/api', userRouter);
 app.use('/posts', postRouter, commentRouter);
-app.use(errorHandler); // improve more
 
 app.listen(config.port, () => console.log("Server Working"));
