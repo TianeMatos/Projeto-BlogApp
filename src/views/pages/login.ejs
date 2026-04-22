@@ -2,25 +2,8 @@
 <section class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5 p-5 bg-info-subtle">
-      <h1 class="pb-3">Cadastre-se</h1>
-      <form action="/register" method="post">
-        <div class="mb-3">
-          <label for="name" class="form-label"
-            >Nome</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            id="name"
-            aria-errormessage="nameError"
-          />
-          <% if (typeof error !== "undefined") { %>
-            <div id="nameError" class="form-text">
-              <%= error.name %>
-            </div>
-          <% } %>
-        </div>
+      <h1 class="pb-3">Login</h1>
+      <form action="/signin" method="post">
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -32,7 +15,7 @@
             aria-errormessage="emailError"
           />
 
-          <% if (typeof error !== "undefined") { %>
+          <% if (typeof(error) !== "undefined") { %>
             <div id="emailError" class="form-text">
               <%= error.email %>
             </div>
@@ -42,7 +25,7 @@
         <div class="mb-3">
           <label for="password" class="form-label">Senha</label>
           <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" />
-          <% if (typeof error !== "undefined") { %>
+          <% if (typeof(error) !== "undefined") { %>
             <div id="passwordError" class="form-text">
               <%= error.password %>
             </div>
@@ -51,12 +34,12 @@
 
         <div class="mb-4 text-center">
           <span>
-            Já tem uma conta? <a href="/signin">Faça Login</a>.
+            Não tem uma conta? <a href="/register">Cadastre-se</a>.
           </span>
         </div>
 
         <div class="d-grid">
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
+          <button type="submit" class="btn btn-primary">Entrar</button>
         </div>
       </form>
     </div>

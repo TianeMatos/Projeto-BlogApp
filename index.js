@@ -14,6 +14,7 @@ const userRouter = require('./src/routes/user');
 const authRouter = require('./src/routes/authentication');
 const postRouter = require('./src/routes/post');
 const commentRouter = require('./src/routes/comment');
+const requireAuth = require('./src/middleware/auth');
 
 const app = express();
 
@@ -28,9 +29,10 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, './src/public')));
 
 // Get Home
-app.get('/', (req, res) => {
+app.get('/', requireAuth, (req, res) => {
   try {
-    res.status(200).render('./pages/home', { title: "Home" });
+    // console.log(req.userId);
+    res.status(200).render('./pages/home', { title: "Home", userId: req.userId });
   } catch (error) {
     console.log("Erro ao Renderizar Página Inicial");
   }
@@ -38,7 +40,7 @@ app.get('/', (req, res) => {
 
 // Routes Users
 app.use('/', authRouter)
-app.use('/api', userRouter);
+app.use('/', userRouter);
 app.use('/posts', postRouter, commentRouter);
 
 app.listen(config.port, () => console.log("Server Working"));

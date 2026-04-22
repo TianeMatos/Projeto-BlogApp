@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const router = Router();
 
 // POST /auth/signin - User sign-in
-router.post('/auth/signin', async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     
@@ -22,16 +22,24 @@ router.post('/auth/signin', async (req, res) => {
     const token = jwt.sign({ _id: user.id }, config.jwtSecret);
     res.cookie("t", token, { httpOnly: true, maxAge: 3600000 });
 
-    return res.status(200).json({ message: "OK", token });
+    return res.status(200).redirect('/');
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 });
 
+router.get('/login', (req, res) => {
+  try {
+    res.status(200).render('./pages/login', { title: "Login" });
+  } catch (error) {
+    res.status(500).json({ message: "Error ", error: error.message });
+  }
+});
+
 // GET /auth/signout - User sign-out
-router.get('/auth/signout', (req, res) => {
+router.get('/logout', (req, res) => {
   res.clearCookie("t");
-  return res.status(200).json({ message: "Signed Out", cookie: req.cookies });
+  return res.status(200).redirect('/');
 });
 
 module.exports = router;

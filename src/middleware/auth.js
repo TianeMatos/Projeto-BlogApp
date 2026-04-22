@@ -7,14 +7,17 @@ const requireAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, config.jwtSecret, (err, decoded) => {
       if (err) {
-        return res.status(400).json({ error: "Token Not Verificated" });
+        req.userId = null;
+        return next();
+        // return res.status(400).json({ error: "Token Not Verificated" });
       }
       console.log(decoded);
       req.userId = decoded._id;
       next();
     });
   } else {
-    return res.status(400).json({ error: "Not Authenticated" });
+    req.userId = undefined;
+    return next();
   }
 }
 
