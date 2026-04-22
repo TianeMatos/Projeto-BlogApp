@@ -31,9 +31,9 @@ router.get('/', async (req, res) => {
 });
 
 // GET /users/:id - Fetch a user
-router.get('/:id', requireAuth, async (req, res) => {
+router.get('/:userId', requireAuth, async (req, res) => {
  try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.userId);
       // req.profile.password = undefined;
       res.status(200).json({ message: "User", user });
  } catch (error) {
@@ -42,9 +42,9 @@ router.get('/:id', requireAuth, async (req, res) => {
 });
 
 // PUT /users/:id - Update a user
-router.put('/:id', async (req, res) => {
+router.put('/:userId', async (req, res) => {
  try {
-      const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { returnDocument: "after" }).select({ _id: 0, name: 1, email: 1, createdAt: 1, updatedAt: 1 });
+      const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body, { returnDocument: "after" }).select({ _id: 0, name: 1, email: 1, createdAt: 1, updatedAt: 1 });
       res.status(200).json({ message: "Updated User", updatedUser });
  } catch (error) {
       res.status(500).json({ message: "Error Updating the User", error: error.message });
@@ -52,9 +52,9 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /users/:id - Delete a user
-router.delete('/:id', async (req, res) => {
+router.delete('/:userId', async (req, res) => {
  try {
-      const deletedUser = await User.findByIdAndDelete(req.params.id).select({ _id: 0, name: 1, email: 1, createdAt: 1, updatedAt: 1 });
+      const deletedUser = await User.findByIdAndDelete(req.params.userId).select({ _id: 0, name: 1, email: 1, createdAt: 1, updatedAt: 1 });
       res.status(200).json({ message: "Deleted User", deletedUser });
  } catch (error) {
       res.status(500).json({ message: "Error Deleting the User", error: error.message });
