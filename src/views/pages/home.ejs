@@ -1,15 +1,19 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
-  <div class="container">
-    <div class="row text-center justify-content-md-center mt-5">
-      <h1>Bem Vindo ao Blog App!</h1>
-      <p class="mt-1 mb-4 fw-medium">Leia, Comente e Compartilhe Posts Interessantes.</p>
-      <div>
-        <img class="w-75 img-fluid rounded" src="./images/website-home.png" alt="">
+  <div class="container-lg">
+    <div class="row p-5 justify-content-md-center align-items-center">
+      <div class="col-5 mt-5 ">
+        <p class="text-primary fw-semibold text-uppercase ">Bem-Vindo ao BlogApp!</p>
+        <h1 class="pt-2 text-primary-emphasis">Compartilhe Ideias.</h1>
+        <h1 class="text-primary ">Inspire o Mundo.</h1>
+        <p class="pt-3 mt-3">Publique seus pensamentos, conecte-se com as pessoas e descubra histórias incriveis todos os dias.</p>
+        <div class="buttons mt-5">
+          <a class="btn btn-primary p-3 fw-semibold me-3 mb-3" href="/register">Começar Agora</a>
+          <a class="btn btn-outline-primary p-3 fw-semibold mb-3" href="/posts">Explorar Posts</a>
+        </div>
       </div>
-      <div class="buttons mt-4">
-        <a class="btn btn-primary w-25" href="/register">Cadastre-se</a>
-        <a class="btn btn-primary w-25" href="/login">Login</a>
+      <div class="col-7">
+        <img class=" img-fluid rounded" src="./images/homeImage.jpg" alt="" style="width: 100%">
       </div>
     </div>
   </div>
