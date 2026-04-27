@@ -16,6 +16,11 @@ const postSchema = mongoose.Schema({
     ref: 'User',
     required: [true, "Author is Required"]
   },
+  
+  commentsCount: { 
+    type: Number, 
+    default: 0 
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Post", postSchema);
