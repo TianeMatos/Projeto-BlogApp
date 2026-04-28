@@ -13,7 +13,6 @@ connectDB();
 const userRouter = require('./src/routes/user');
 const authRouter = require('./src/routes/authentication');
 const postRouter = require('./src/routes/post');
-const commentRouter = require('./src/routes/comment');
 const requireAuth = require('./src/middleware/auth');
 
 const app = express();
@@ -39,8 +38,8 @@ app.get('/', requireAuth, (req, res) => {
 });
 
 // Routes Users
+app.use('/posts', postRouter);
 app.use('/', authRouter)
 app.use('/', userRouter);
-app.use('/posts', postRouter, commentRouter);
 
 app.listen(config.port, () => console.log("Server Working"));
