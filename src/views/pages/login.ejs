@@ -1,9 +1,13 @@
 <%- include('../partials/header') %> <%- include('../partials/nav') %>
-<section class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5 p-5 bg-info-subtle">
-      <h1 class="pb-3">Login</h1>
-      <form action="/signin" method="post">
+<section class="container-lg mt-5">
+  <div class="row gap-3 p-5 align-items-center justify-content-center justify-content-lg-between bg-info-subtle rounded">
+    <div class="col-6">
+      <img src="/images/login.png" class="img-fluid rounded" alt="imagem do login" style="width: 100%">
+    </div>
+    <div class="col-sm-9 col-md-6 col-lg-5">
+      <h1 class="text-primary-emphasis">Entrar na sua conta</h1>
+      <p class="text-body-secondary">Bem-vindo de volta! Faça login para continuar.</p>
+      <form action="/login" method="post" class="mt-4">
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -22,7 +26,7 @@
           <% } %>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
           <label for="password" class="form-label">Senha</label>
           <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" />
           <% if (typeof(error) !== "undefined") { %>
@@ -32,14 +36,14 @@
           <% } %>
         </div>
 
-        <div class="mb-4 text-center">
-          <span>
-            Não tem uma conta? <a href="/register">Cadastre-se</a>.
-          </span>
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-primary">Entrar</button>
         </div>
 
-        <div class="d-grid">
-          <button type="submit" class="btn btn-primary">Entrar</button>
+        <div class="text-center pt-2">
+          <span>
+            Não tem uma conta? <a href="/register" class="fw-medium">Cadastre-se</a>.
+          </span>
         </div>
       </form>
     </div>
