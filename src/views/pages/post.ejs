@@ -1,0 +1,103 @@
+<%- include('../partials/header') %> <%- include('../partials/nav') %>
+<section class="mx-5 mt-5 pb-5">
+  <div class="row align-items-center justify-content-center">
+    <div class="content col-9">
+
+      <!-- Title -->
+       <h1 class="card-title py-3">
+        <%= post.title %>
+      </h1>
+
+      <!-- Info -->
+       <div class="info py-3">
+        <div class="d-flex align-items-center">
+          <span class=" fw-semibold">🧑🏻‍🦰 <%= post.author.name %></span>
+          <span class="ms-3">•</span>
+          <span class="text-body-secondary ms-3"><%= new Date(post.createdAt).toLocaleString("pt-BR", { dateStyle: "long" }) %></span>
+        </div>   
+       </div>
+
+       <!-- Image -->
+      <div class="my-5 py-3 text-center">
+        <!-- <img 
+          src= post.image || "https://picsum.photos/seed/programmer/900/500/"  
+          class="img-fluid rounded" 
+          alt="Imagem do post"
+          style=""
+        > -->
+        <img 
+          src=<%= post.tags.length > 0  ? "https://loremflickr.com/900/500/" + post.tags : "/images/image.png" %>
+          class="img-fluid rounded" 
+          alt="Imagem do post"
+          style="max-width:700px;"
+        >
+        
+      </div>
+
+      <!-- Content -->
+      <div class="my-4">
+        <div>
+          <%- post.content.split("\n").map(p => `<p>${p}</p>`).join(""); %>        
+        </div>
+      </div>
+
+    </div>
+    <div class="comments card col-8 mt-4 mb-3 shadow-sm border-0">
+      <div class="card p-4 border-0">
+        <h3>Comentários (<%= comments.length %>)</h3>
+        <% if (user !== null) { %>
+          <form class="mt-4" action="/posts/<%= post._id %>/comments" method="post">
+            <div class="d-flex gap-3">
+              <!-- Avatar -->
+              <div class="d-flex align-items-center justify-content-center bg-primary rounded-circle text-light fw-semibold fs-5" style="height: 50px; width: 50px;">
+                <%= user.name.charAt(0).toUpperCase() %>
+              </div>
+
+              <!-- Input and Button -->
+              <div class="flex-grow-1">
+                <textarea class="form-control mb-2" id="comment" name="text" rows="3" placeholder="Escreva um Comentário..."></textarea>
+                
+                <div class="d-flex justify-content-end mt-3">
+                  <button class="btn btn-primary" type="submit">Publicar Comentrio</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        <% } else { %>
+          <p class="mt-3 ms-3 fs-5">
+            <a href="/login" class=" ">Faça Login</a> para Comentar.
+          </p>
+        <% } %>
+      </div>
+      <div class="card gap-3 mt-2 mb-4 mx-4 py-4 border overflow-y-auto" style="width: auto; height: min-content; max-height: 500px;">
+        <% comments.forEach((comment, i) => { %>
+          <div class="d-flex gap-3 px-2 align-items-center">
+            
+            <!-- Avatar -->
+            <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary rounded-circle text-light fw-semibold fs-5" style="height: 50px; width: 50px;">
+              <%= comment.author.name.charAt(0).toUpperCase() %>
+            </div>
+
+            <div class="flex-grow-1 comment">
+              <div class="comment-info">
+                <span class="fw-medium small"><%= comment.author.name %></span>
+                <span class="mx-1">•</span>
+                <span class="comment-date small me-4 text-body-secondary" data-date="<%= comment.createdAt %>"></span>
+                <% if (comment.author.name === post.author.name) { %>
+                 <div class="badge rounded-pill text-bg-info text-primary-emphasis text-start">Autor</div>
+                <% } %>
+              </div>
+              <div class="comment-text small ms-1">
+                <%= comment.text %>
+              </div>
+            </div>
+          </div>
+          <% if ((i + 1) < comments.length) { %>
+            <hr>
+          <% } %>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

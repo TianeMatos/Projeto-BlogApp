@@ -54,7 +54,6 @@ router.get('/:postId', requireAuth, async (req, res) => {
     const post = await Post.findById(req.params.postId).populate({ path: "author", select: "name" });
     const comments = await Comment.find({ post: req.params.postId }).sort({ createdAt: -1 }).populate({ path: "author", Select: "name email"});
     res.status(200).render('./pages/post', { title: post.title, post, comments });
-    // res.status(200).json(post);
   } catch (error) {
     console.log("Error: ", error.message);
   }
