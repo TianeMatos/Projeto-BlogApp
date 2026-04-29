@@ -8,7 +8,7 @@ const requireAuth = async (req, res, next) => {
   if (!token) {
     req.user = null;
     res.locals.user = null;
-    return next();
+    return res.redirect('/');
   }
 
   try {

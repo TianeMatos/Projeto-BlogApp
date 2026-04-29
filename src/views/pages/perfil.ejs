@@ -1,0 +1,81 @@
+<%- include('../partials/header') %> <%- include('../partials/nav') %>
+<section class="container-fluid">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12 px-0">
+      <div class="card text-bg-dark rounded-0">
+        <img src="/images/fundoPerfil.png" class="card-img" alt="Fundo do Perfil" style="height: 250px;">
+        <div class="d-flex gap-5 p-5 mx-5 flex-wrap align-items-center card-img-overlay">
+          <div class="flex-shrink-0">
+            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 100px;">
+          </div>
+          <div>
+            <h4 class="card-title"><%= user.name %></h4>
+            <p class="card-text"><%= user.bio || "Atualize sua Bio" %></p>
+          </div>
+          <div class="align-self-end ms-auto">
+            <a href="/users/<%= user._id %>/edit" class="btn btn-outline-light">Editar Perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-10 p-5">
+      <h2>Seus Posts</h2>
+      <div class="cards mt-5">
+        <% posts.forEach(post => { %>
+          <div class="card mb-4 shadow border-0  rounded">
+            <div class="row g-0 align-items-center">
+              
+              <!-- Image -->
+              <div class="col-md-4 px-3 py-3 text-center">
+                <img 
+                  src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
+                  class="img-fluid rounded" 
+                  alt="Imagem do post"
+                >
+              </div>
+
+              <!-- Body -->
+              <div class="col-md-7">
+                <div class="card-body">
+
+                  <!-- Title -->
+                  <h5 class="card-title mt-2">
+                    <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
+                  </h5>
+
+                  <!-- Description -->
+                  <p class="card-text text-body-secondary mb-2">
+                    <%= post.content.slice(0, 100) %> 
+                  </p>
+
+                  <!-- Footer -->
+                  <div class="d-flex justify-content-between align-items-center mt-5">
+
+                    <!-- Author -->
+                    <div class="d-flex align-items-center">
+                      <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 20px;">
+                      <small class="text-body-secondary ms-3"><%= user.name %></small>
+                    </div> 
+
+                    <!-- Infos -->
+                    <div class="d-flex gap-3 text-body-secondary small">
+                      <!-- <span>8 min</span> -->
+                      <span>💬 <%= post.commentsCount %></span>
+                      <span class="text-body-secondary"
+                        >📆 <%= new Date(post.createdAt).toLocaleString("en-US", { dateStyle: "medium" }) %>
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

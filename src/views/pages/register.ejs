@@ -7,7 +7,7 @@
     <div class="col-sm-9 col-md-6 col-lg-5">
       <h1 class="text-primary-emphasis">Crie sua conta</h1>
       <p class="text-body-secondary">Junte-se à nossa comunidade e comece a compartilhar.</p>
-      <form action="/register" method="post" class="mt-4">
+      <form action="/users/register" method="post" class="mt-4">
         <div class="mb-3">
           <label for="name" class="form-label"
             >Nome</label
@@ -17,11 +17,22 @@
             class="form-control"
             name="name"
             id="name"
+            required
             aria-errormessage="nameError"
           />
           <% if (typeof error !== "undefined") { %>
             <div id="nameError" class="form-text">
               <%= error.name %>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <label for="bio" class="form-label fw-semibold">Bio <span class="text-body-secondary small fw-normal"> (opicional) </span></label>
+          <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Insira uma Bio interessante..." required></textarea>
+          <% if (typeof(error) !== "undefined" && error.bio) { %>
+            <div id="bioErro" class="form-text text-danger fw-medium m-2 pt-1">
+              ⚠️ <%= error.bio %>
             </div>
           <% } %>
         </div>
@@ -33,6 +44,7 @@
             class="form-control"
             id="email"
             name="email"
+            required
             aria-errormessage="emailError"
           />
 
@@ -45,7 +57,7 @@
 
         <div class="mb-4">
           <label for="password" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" />
+          <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required />
           <% if (typeof error !== "undefined") { %>
             <div id="passwordError" class="form-text">
               <%= error.password %>

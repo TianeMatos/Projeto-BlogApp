@@ -11,7 +11,7 @@
               <div class="row g-0 align-items-center">
                 
                 <!-- Image -->
-                <div class="col-md-4 px-3 py-3">
+                <div class="col-md-4 px-3 py-3 text-center">
                   <img 
                     src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
                     class="img-fluid rounded" 
@@ -38,13 +38,8 @@
 
                       <!-- Author -->
                       <div class="d-flex align-items-center">
-                        <!-- <img 
-                          src="https://via.placeholder.com/30" 
-                          class="rounded-circle" 
-                          width="30" 
-                          height="30"
-                        > -->
-                        <small class="text-body-secondary">🧑🏻‍🦰 <%= post.author.name %></small>
+                        <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 20px;">
+                        <small class="text-body-secondary ms-3"><%= post.author.name %></small>
                       </div> 
 
                       <!-- Infos -->

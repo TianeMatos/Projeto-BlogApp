@@ -5,38 +5,43 @@ const jwt = require('jsonwebtoken');
 
 const router = Router();
 
-// POST /auth/signin - User sign-in
+// POST /auth/login - User sign-in
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     
     if (!user){
-      return res.status(404).json({ error: "User not found" });
+      // return res.status(404).json({ error: "User not found" });
+      throw new Error("Erro ao fazem login");
     }
 
     const valid = await user.isValidPassword(req.body.password);
     if (!valid) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      // return res.status(401).json({ error: "Invalid credentials" });
+      throw new Error("Erro ao fazem login");
     }
 
     const token = jwt.sign({ _id: user.id }, config.jwtSecret);
     res.cookie("t", token, { httpOnly: true, maxAge: 3600000 });
 
-    return res.status(200).redirect('/');
+    return res.status(200).render('/');
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    throw new Error("Erro ao fazem login");
   }
 });
 
+// /auth/login
 router.get('/login', (req, res) => {
   try {
     res.status(200).render('./pages/login', { title: "Login" });
   } catch (error) {
-    res.status(500).json({ message: "Error ", error: error.message });
+    // res.status(500).json({ message: "Error ", error: error.message });
+    console.log(error);
+    throw new Error("Erro ao fazem login");
   }
 });
 
-// GET /auth/signout - User sign-out
+// GET /auth/logout - User sign-out
 router.get('/logout', (req, res) => {
   res.clearCookie("t");
   return res.status(200).redirect('/');

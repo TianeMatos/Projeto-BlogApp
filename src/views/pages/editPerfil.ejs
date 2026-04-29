@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+<section class="container-lg mt-5">
+  <div class="row gap-3 p-5 align-items-center justify-content-center justify-content-lg-between bg-info-subtle rounded shadow">
+    <div class="col-6">
+      <img src="/images/register.png" class="img-fluid rounded" alt="imagem do cadastro" style="width: 100%">
+    </div>
+    <div class="col-sm-9 col-md-6 col-lg-5">
+      <h1 class="text-primary-emphasis">Editar Perfil</h1>
+      <p class="text-body-secondary">Atualize suas informações pessoais.</p>
+      <form action="/users/<%= user._id %>/edit?_method=PUT" method="post" class="mt-4">
+        <div class="mb-3">
+          <label for="name" class="form-label"
+            >Nome</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            value="<%= user.name %>"
+            aria-errormessage="nameError"
+            required
+          />
+          <% if (typeof error !== "undefined") { %>
+            <div id="nameError" class="form-text">
+              <%= error.name %>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="<%= user.email %>"
+            required
+            aria-errormessage="emailError"
+          />
+
+          <% if (typeof error !== "undefined") { %>
+            <div id="emailError" class="form-text">
+              <%= error.email %>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="mb-5">
+          <label for="bio" class="form-label fw-semibold">Bio</label>
+          <textarea class="form-control" id="bio" name="bio" rows="3"><%= user.bio %></textarea>
+        </div>
+
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-success">Salvar Edição</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

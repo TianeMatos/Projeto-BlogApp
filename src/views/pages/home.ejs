@@ -9,7 +9,7 @@
         <p class="pt-3 mt-3">Publique seus pensamentos, conecte-se com as pessoas e descubra histórias incriveis todos os dias.</p>
         <div class="buttons mt-5">
           <% if (typeof user === "undefined" || user === null) { %>
-            <a class="btn btn-primary p-3 fw-semibold me-3 mb-3" href="/register">Começar Agora</a>
+            <a class="btn btn-primary p-3 fw-semibold me-3 mb-3" href="/users/register">Começar Agora</a>
           <% } else { %>
             <a class="btn btn-primary p-3 fw-semibold mb-3" href="/posts/createPost">Criar Novo Post</a>
           <% } %>

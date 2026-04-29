@@ -16,6 +16,7 @@
             class="form-control"
             id="email"
             name="email"
+            required
             aria-errormessage="emailError"
           />
 
@@ -28,7 +29,7 @@
 
         <div class="mb-4">
           <label for="password" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" />
+          <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required/>
           <% if (typeof(error) !== "undefined") { %>
             <div id="passwordError" class="form-text">
               <%= error.password %>
@@ -42,7 +43,7 @@
 
         <div class="text-center pt-2">
           <span>
-            Não tem uma conta? <a href="/register" class="fw-medium">Cadastre-se</a>.
+            Não tem uma conta? <a href="/users/register" class="fw-medium">Cadastre-se</a>.
           </span>
         </div>
       </form>
