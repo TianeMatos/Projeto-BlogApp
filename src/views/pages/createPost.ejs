@@ -1,0 +1,54 @@
+<%- include('../partials/header') %>
+<%- include('../partials/nav') %>
+<div class="container-lg">
+  <div class="row p-5 my-5 justify-content-md-center align-items-center bg-info-subtle rounded shadow">
+    <div class="col-12">
+      <h1 class="pt-2 text-primary-emphasis">Criar Novo Post</h1>
+      <p class="pb-3 mb-3">Compartilhe suas ideias com o mundo.</p>
+    </div>
+    <div class="col-12">
+      <form action="/posts/createPost" method="post">
+        <div class="mb-4">
+          <label for="title" class="form-label fw-semibold">Título</label>
+          <input type="text" class="form-control" id="title" name="title" aria-errormessage="titleErro" placeholder="Digite um título interessante...">
+          <% if (typeof(error) !== "undefined" && error.title) { %>
+            <div id="titleErro" class="form-text text-danger fw-medium m-2 pt-1">
+              ⚠️ <%= error.title %>
+            </div>
+          <% } %>
+        </div>
+        <div class="mb-4">
+          <label for="tags" class="form-label fw-semibold">Adicionar Tags <span class="text-body-secondary small fw-normal"> (opicional) </span></label>
+          <input type="text" class="form-control" id="tags" name="tags" placeholder="Digite uma ou mais tags">
+          <div class="form-text ps-3">
+            <p>Ex.: tecnelogia, desenvolvimento, dicas...</p>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="imageUrl" class="form-label fw-semibold">Adicionar Url da Imagem</label>
+          <input class="form-control" type="text" id="imageUrl" name="imageUrl" >
+          <% if (typeof(error) !== "undefined" && error.imageUrl) { %>
+            <div id="imageUrlErro" class="form-text text-danger fw-medium m-2 pt-1">
+              ⚠️ <%= error.imageUrl %>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="mb-4">
+          <label for="content" class="form-label fw-semibold">Conteúdo</label>
+          <textarea class="form-control" id="content" name="content" rows="10"></textarea>
+          <% if (typeof(error) !== "undefined" && error.content) { %>
+            <div id="contentErro" class="form-text text-danger fw-medium m-2 pt-1">
+              ⚠️ <%= error.content %>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="d-flex mb-4 justify-content-end">
+          <button type="submit" class="btn btn-success py-3 px-5">Criar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer') %>

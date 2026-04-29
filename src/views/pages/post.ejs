@@ -26,7 +26,7 @@
           style=""
         > -->
         <img 
-          src=<%= post.tags.length > 0  ? "https://loremflickr.com/900/500/" + post.tags : "/images/image.png" %>
+          src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
           class="img-fluid rounded" 
           alt="Imagem do post"
           style="max-width:700px;"
@@ -42,7 +42,7 @@
       </div>
 
     </div>
-    <div class="comments card col-8 mt-4 mb-3 shadow-sm border-0">
+    <div class="comments card col-8 mt-4 mb-3 shadow border-0">
       <div class="card p-4 border-0">
         <h3>Comentários (<%= comments.length %>)</h3>
         <% if (user !== null) { %>

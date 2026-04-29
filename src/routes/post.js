@@ -39,10 +39,25 @@ router.get('/', async (req, res) => {
 });
 
 // POST /posts - publish one post
-router.post('/', requireAuth, async (req, res) => {
+router.post('/createPost', requireAuth, async (req, res) => {
   try {
-    const newPost = await Post.create({ ...req.body, author: req.userId });
-    res.status(200).json(newPost);
+    const newPost = await Post.create({
+      title: req.body.title, 
+      content: req.body.content,
+      author: req.user.id,
+      tags: req.body.tags.trim().split(","),
+      imageUrl: req.body.imageUrl
+    });
+    res.redirect(`/posts/${newPost._id}`);
+  } catch (error) {
+    res.status(500).render('./pages/createPost', { title: "Criar Novo Post", error: error.errors });
+  }
+});
+
+// GET /posts/addPost - Page add Post
+router.get('/createPost', requireAuth, async (req, res) => {
+  try {
+    res.status(200).render('./pages/createPost', { title: "Criar Novo Post", error: undefined });
   } catch (error) {
     console.log("Error: ", error.message);
   }

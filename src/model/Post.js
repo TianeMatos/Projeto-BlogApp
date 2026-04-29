@@ -3,18 +3,18 @@ const mongoose = require('mongoose');
 const postSchema = mongoose.Schema({
   title: {
     type: String,
-    required: [true, "Title is Required"]
+    required: [true, "O título é necessário"]
   },
 
   content: {
     type: String,
-    required: [true, "Content is Required"]
+    required: [true, "O conteúdo é necessário"]
   },
 
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, "Author is Required"]
+    required: [true, "O autor é necessário"]
   },
   
   commentsCount: { 
@@ -23,7 +23,12 @@ const postSchema = mongoose.Schema({
   },
 
   tags: {
-    type: Array,
+    type: Array
+  },
+
+  imageUrl: {
+    type: String,
+    required: [true, "A imagem é necessária"]
   }
 }, { timestamps: true });
 

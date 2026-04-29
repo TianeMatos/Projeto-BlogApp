@@ -13,7 +13,7 @@
                 <!-- Image -->
                 <div class="col-md-4 px-3 py-3">
                   <img 
-                    src=<%= post.tags.length > 0 ? "https://loremflickr.com/900/500/" + post.tags : "./images/image.png" %>  
+                    src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
                     class="img-fluid rounded" 
                     alt="Imagem do post"
                   >
@@ -29,7 +29,7 @@
                     </h5>
 
                     <!-- Description -->
-                    <p class="card-text text-muted mb-2">
+                    <p class="card-text text-body-secondary mb-2">
                       <%= post.content.slice(0, 100) %> 
                     </p>
 
@@ -44,11 +44,11 @@
                           width="30" 
                           height="30"
                         > -->
-                        <small class="text-muted">🧑🏻‍🦰 <%= post.author.name %></small>
+                        <small class="text-body-secondary">🧑🏻‍🦰 <%= post.author.name %></small>
                       </div> 
 
                       <!-- Infos -->
-                      <div class="d-flex gap-3 text-muted small">
+                      <div class="d-flex gap-3 text-body-secondary small">
                         <!-- <span>8 min</span> -->
                         <span>💬 <%= post.commentsCount %></span>
                         <span class="text-body-secondary"
