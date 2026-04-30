@@ -1,23 +1,53 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
-  <div class="container-lg">
-    <div class="row p-5 justify-content-md-center align-items-center">
-      <div class="col-5 mt-5 ">
-        <p class="text-primary fw-semibold text-uppercase"><%= user ? "Bem-Vindo de volta, " + user.name + "!" + "👋" : "Bem-Vindo ao BlogApp!" %></p>
-        <h1 class="pt-2 text-primary-emphasis">Compartilhe Ideias.</h1>
-        <h1 class="text-primary ">Inspire o Mundo.</h1>
-        <p class="pt-3 mt-3">Publique seus pensamentos, conecte-se com as pessoas e descubra histórias incriveis todos os dias.</p>
-        <div class="buttons mt-5">
-          <% if (typeof user === "undefined" || user === null) { %>
-            <a class="btn btn-primary p-3 fw-semibold me-3 mb-3" href="/users/register">Começar Agora</a>
-          <% } else { %>
-            <a class="btn btn-primary p-3 fw-semibold mb-3" href="/posts/createPost">Criar Novo Post</a>
-          <% } %>
-          <a class="btn btn-outline-primary p-3 fw-semibold mb-3" href="/posts">Explorar Posts</a>
-        </div>
+  <div class="container">
+    <div class="row p-4 gap-1 row-gap-3 align-items-center justify-content-lg-center justify-content-md-between">
+      <div class="col-lg-6 col-md-6 mt-3">
+        <h1 class="pb-2">Sobre o BlogApp!</h1>
+        <p>
+          Olá, Este é o BlogApp!, um projeto desenvolvido para fins de aprendizagem e prática no desenvolvimento web Full Stack.
+          Ele permite que os usuários criem, publiquem e interajam com conteúdos.
+        </p>
       </div>
-      <div class="col-7">
-        <img class=" img-fluid rounded" src="./images/homeImage.jpg" alt="Imagem da Home" style="width: 100%">
+      <div class="col-lg-5 col-md-4 text-center">
+        <img src="/images/avatar.jpg" class="imageAvatar img-fluid rounded-circle shadow w-75" alt="Avatar imagem">
+      </div>
+    </div>
+    <hr>
+    <div class="row p-4 pt-5 mt-3 gap-1 row-gap-5 py-3">
+      <div class="col-lg-5 col-md-5 col-sm-12 text-center">
+        <h3>Funcionalidades</h3>
+        <ul class="list-group">
+          <li class="list-group-item border-0"> 
+            <img src="https://img.icons8.com/?size=26&id=G8cur043g7ms&format=png&color=052c65" alt="Icone usuário com segurança">
+            Autenticação com Login e Cadastro</li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=26&id=10239&format=png&color=052c65" alt="Icone adicionar algo">
+            Criação de Posts e Comentários</li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=26&id=59878&format=png&color=052c65" alt="Icone lupa">
+            Utilização de Busca e Filtros</li>
+        </ul>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+        <h3>Tecnologias Utilizadas</h3>
+        <ul class="list-group list-group-horizontal flex-wrap justify-content-center py-2">
+          <li class="list-group-item border-0" >
+            <img src="https://img.icons8.com/?size=50&id=54087&format=png&color=000000" alt="Logo do Node.js" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Node.js">
+          </li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=50&id=kg46nzoJrmTR&format=png&color=000000" alt="Logo do Express" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Express">
+          </li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=50&id=74402&format=png&color=000000" alt="Logo do MongoDB" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="MongoDB">
+          </li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=50&id=puL87ypQPxxr&format=png&color=000000" alt="Logo do EJS" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="EJS">
+          </li>
+          <li class="list-group-item border-0">
+            <img src="https://img.icons8.com/?size=50&id=EzPCiQUqWWEa&format=png&color=000000" alt="Logo do Bootstrap" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Bootstrap">
+          </li>
+        </ul>
       </div>
     </div>
   </div>
