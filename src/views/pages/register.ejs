@@ -19,7 +19,7 @@
             required
             aria-errormessage="nameError"
           />
-          <% if (typeof error !== "undefined") { %>
+          <% if (typeof error !== "undefined" && error.name) { %>
             <div id="nameError" class="form-text">
               <%= error.name.message %>
             </div>
@@ -47,7 +47,7 @@
             aria-errormessage="emailError"
           />
 
-          <% if (typeof error !== "undefined") { %>
+          <% if (typeof error !== "undefined" && error.email) { %>
             <div id="emailError" class="form-text">
               <%= error.email.message %>
             </div>
@@ -57,7 +57,7 @@
         <div class="mb-4">
           <label for="password" class="form-label fw-semibold">Senha</label>
           <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required />
-          <% if (typeof error !== "undefined") { %>
+          <% if (typeof error !== "undefined" && error.password) { %>
             <div id="passwordError" class="form-text">
               <%= error.password.message %>
             </div>

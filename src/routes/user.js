@@ -7,7 +7,7 @@ const secure = require("../middleware/secure");
 const router = Router();
 
 //* POST /users/register - Register a User in the DataBase 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
      try {
           const body = req.body;
           const user = await User.create(body);
@@ -33,11 +33,11 @@ router.post("/register", async (req, res) => {
 
 //* GET /users/register - Render the Register Page
 router.get("/register", async (req, res) => {
-     res.status(200).render('./pages/register', { title: "Cadastro" });
+     res.status(200).render('./pages/register', { title: "Cadastro", error: {} });
 });
 
 // GET /users - List all users - Not Using
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
      try {
           const users = await User.find({});
           res.status(200).json({ message: `List of users (${users.length})`, users });
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
 });
 
 //* GET /users/:id - Fetch a User in the DataBase and Render Page Perfil
-router.get('/:userId', secure, async (req, res) => {
+router.get('/:userId', secure, async (req, res, next) => {
      try {
           const profileUser = await User.findById(req.params.userId);
           const postOfUser = await Post.find({ author: profileUser._id });
@@ -59,9 +59,9 @@ router.get('/:userId', secure, async (req, res) => {
 
 
 //* PUT /users/:userId/edit - Update a User in the DataBase
-router.put('/:userId/edit', secure, async (req, res) => {
+router.put('/:userId/edit', secure, async (req, res, next) => {
      try {
-          const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body);
+          await User.findByIdAndUpdate(req.params.userId, req.body, { new: true, runValidators: true });
           res.status(200).redirect(`/users/${req.params.userId}`);
      } catch (error) {
           next(error);
@@ -69,7 +69,7 @@ router.put('/:userId/edit', secure, async (req, res) => {
 });
 
 //* GET /users/:userId/edit  - Render the Edit Perfil Page
-router.get('/:userId/edit', secure, async (req, res) => {
+router.get('/:userId/edit', secure, async (req, res, next) => {
      try {
           const user = await User.findById(req.params.userId);
           res.status(200).render('./pages/editPerfil', { title: `Editar Perfil`, user });
@@ -79,7 +79,7 @@ router.get('/:userId/edit', secure, async (req, res) => {
 });
 
 // DELETE /users/:id/deleteUser - Delete a user in the DataBase
-router.delete('/:userId/deleteUser', async (req, res) => {
+router.delete('/:userId/deleteUser', async (req, res, next) => {
      try {
           const deletedUser = await User.findByIdAndDelete(req.params.userId).select({ _id: 0, name: 1, email: 1, createdAt: 1, updatedAt: 1 });
           res.status(200).json({ message: "Deleted User", deletedUser });

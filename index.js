@@ -31,12 +31,21 @@ app.use(methodOverride('_method'));
 
 app.use(identifyUser);
 
-// Get Home
+// Get Home Page
 app.get('/', (req, res) => {
   try {
     res.status(200).render('./pages/home', { title: "Home" });
   } catch (error) {
-    console.log("Erro ao Renderizar Página Inicial");
+    next("Erro ao Renderizar Página Inicial");
+  }
+});
+
+// Get About Page
+app.get('/about', (req, res) => {
+  try {
+    res.status(200).render('./pages/about', { title: "Sobre" });
+  } catch (error) {
+    next("Erro ao Renderizar Página Sobre");
   }
 });
 
