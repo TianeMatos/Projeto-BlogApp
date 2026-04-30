@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const Post = require("../model/Post");
-const requireAuth = require("../middleware/auth");
+const identifyUser = require("../middleware/identifyUser");
 const Comment = require("../model/Comment");
+const secure = require("../middleware/secure");
 
 const router = Router();
 
@@ -17,16 +18,16 @@ router.get('/', async (req, res) => {
     // Filter
     const query = {};
     if (search) {
-      query.title = search;
+      query.title = { $regex: search, $options: "i" };
     }
 
     // Order
-    const sortOption = { createdAt: -1 };
+    let sortOption = { createdAt: -1 };
     if (sort === "comments") {
       sortOption = { commentsCount: -1}
     }
 
-    const posts = await Post.find({}).sort(sortOption).skip(skip).limit(limit).populate({ path: "author", Select: "name email"});
+    const posts = await Post.find(query).sort(sortOption).skip(skip).limit(limit).populate({ path: "author", select: "name"});
 
     // Total para paginação
     const total = await Post.countDocuments(query);
@@ -39,7 +40,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /posts - publish one post
-router.post('/createPost', requireAuth, async (req, res) => {
+router.post('/createPost', secure, async (req, res) => {
   try {
     const newPost = await Post.create({
       title: req.body.title, 
@@ -55,7 +56,7 @@ router.post('/createPost', requireAuth, async (req, res) => {
 });
 
 // GET /posts/addPost - Page add Post
-router.get('/createPost', requireAuth, async (req, res) => {
+router.get('/createPost', secure, async (req, res) => {
   try {
     res.status(200).render('./pages/createPost', { title: "Criar Novo Post", error: undefined });
   } catch (error) {
@@ -64,10 +65,10 @@ router.get('/createPost', requireAuth, async (req, res) => {
 });
 
 // GET /posts/:id - Get one post and your comments
-router.get('/:postId', requireAuth, async (req, res) => {
+router.get('/:postId', async (req, res) => {
   try {
     const post = await Post.findById(req.params.postId).populate({ path: "author", select: "name" });
-    const comments = await Comment.find({ post: req.params.postId }).sort({ createdAt: -1 }).populate({ path: "author", Select: "name email"});
+    const comments = await Comment.find({ post: req.params.postId }).sort({ createdAt: -1 }).populate({ path: "author", Select: "name"});
     res.status(200).render('./pages/post', { title: post.title, post, comments });
   } catch (error) {
     console.log("Error: ", error.message);
@@ -75,7 +76,7 @@ router.get('/:postId', requireAuth, async (req, res) => {
 });
 
 // POST /posts/postId/comments - publish one comments
-router.post('/:postId/comments', requireAuth, async (req, res) => {
+router.post('/:postId/comments', secure, async (req, res) => {
   try {
     const newComment = await Comment.create({ text: req.body.text, author: req.user._id, post: req.params.postId });
     await Post.findByIdAndUpdate(req.params.postId, { $inc: { commentsCount: 1 } } );

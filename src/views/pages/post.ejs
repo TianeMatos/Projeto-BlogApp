@@ -11,7 +11,7 @@
       <!-- Info -->
        <div class="info py-3">
         <div class="d-flex align-items-center">
-          <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 35px;">
+          <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 35px;">
           <span class=" fw-semibold ms-3"><%= post.author.name %></span>
           <span class="ms-3">•</span>
           <span class="text-body-secondary ms-3"><%= new Date(post.createdAt).toLocaleString("pt-BR", { dateStyle: "long" }) %></span>
@@ -21,7 +21,7 @@
        <!-- Image -->
       <div class="my-5 py-3 text-center">
         <img 
-          src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
+          src=<%= !post.imageUrl ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
           class="img-fluid rounded" 
           alt="Imagem do post"
           style="max-width:700px;"
@@ -30,10 +30,10 @@
       </div>
 
       <!-- Content -->
-      <div class="my-4">
-        <div>
-          <%- post.content.split("\n").map(p => `<p>${p}</p>`).join(""); %>        
-        </div>
+      <div class="my-4 post-content">
+        <% post.content.split('\n').filter(p => p.trim() !== "").forEach(p => { %>
+          <p class="mb-3"><%= p %></p>
+        <% }) %>
       </div>
 
     </div>
@@ -53,7 +53,7 @@
                 <textarea class="form-control mb-2" id="comment" name="text" rows="3" placeholder="Escreva um Comentário..."></textarea>
                 
                 <div class="d-flex justify-content-end mt-3">
-                  <button class="btn btn-primary" type="submit">Publicar Comentrio</button>
+                  <button class="btn btn-primary" type="submit">Publicar Comentário</button>
                 </div>
               </div>
             </div>

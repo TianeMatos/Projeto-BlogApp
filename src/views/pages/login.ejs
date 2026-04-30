@@ -32,7 +32,7 @@
           <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required/>
           <% if (typeof(error) !== "undefined") { %>
             <div id="passwordError" class="form-text">
-              <%= error.password %>
+              <%= error.password || error %>
             </div>
           <% } %>
         </div>

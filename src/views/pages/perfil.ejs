@@ -6,14 +6,14 @@
         <img src="/images/fundoPerfil.png" class="card-img" alt="Fundo do Perfil" style="height: 250px;">
         <div class="d-flex gap-5 p-5 mx-5 flex-wrap align-items-center card-img-overlay">
           <div class="flex-shrink-0">
-            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 100px;">
+            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 100px;">
           </div>
           <div>
-            <h4 class="card-title"><%= user.name %></h4>
-            <p class="card-text"><%= user.bio || "Atualize sua Bio" %></p>
+            <h4 class="card-title"><%= profileUser.name %></h4>
+            <p class="card-text"><%= profileUser.bio || "Atualize sua Bio" %></p>
           </div>
           <div class="align-self-end ms-auto">
-            <a href="/users/<%= user._id %>/edit" class="btn btn-outline-light">Editar Perfil</a>
+            <a href="/users/<%= profileUser._id %>/edit" class="btn btn-outline-light">Editar Perfil</a>
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
 
                     <!-- Author -->
                     <div class="d-flex align-items-center">
-                      <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 20px;">
-                      <small class="text-body-secondary ms-3"><%= user.name %></small>
+                      <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 20px;">
+                      <small class="text-body-secondary ms-3"><%= profileUser.name %></small>
                     </div> 
 
                     <!-- Infos -->

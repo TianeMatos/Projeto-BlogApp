@@ -11,22 +11,20 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     
     if (!user){
-      // return res.status(404).json({ error: "User not found" });
-      throw new Error("Erro ao fazem login");
+      return res.status(404).render('./pages/login', { title: "Login", error: "Erro ao Fazer Login" });
     }
 
     const valid = await user.isValidPassword(req.body.password);
     if (!valid) {
-      // return res.status(401).json({ error: "Invalid credentials" });
-      throw new Error("Erro ao fazem login");
+      return res.status(401).render('./pages/login', { title: "Login", error: "Erro ao Fazer Login" });
     }
 
-    const token = jwt.sign({ _id: user.id }, config.jwtSecret);
+    const token = jwt.sign({ _id: user._id }, config.jwtSecret);
     res.cookie("t", token, { httpOnly: true, maxAge: 3600000 });
 
-    return res.status(200).render('/');
+    return res.status(200).redirect('/');
   } catch (error) {
-    throw new Error("Erro ao fazem login");
+    console.log(error);
   }
 });
 
@@ -37,7 +35,6 @@ router.get('/login', (req, res) => {
   } catch (error) {
     // res.status(500).json({ message: "Error ", error: error.message });
     console.log(error);
-    throw new Error("Erro ao fazem login");
   }
 });
 

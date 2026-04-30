@@ -9,8 +9,7 @@
       <p class="text-body-secondary">Junte-se à nossa comunidade e comece a compartilhar.</p>
       <form action="/users/register" method="post" class="mt-4">
         <div class="mb-3">
-          <label for="name" class="form-label"
-            >Nome</label
+          <label for="name" class="form-label fw-semibold">Nome</label
           >
           <input
             type="text"
@@ -22,23 +21,23 @@
           />
           <% if (typeof error !== "undefined") { %>
             <div id="nameError" class="form-text">
-              <%= error.name %>
+              <%= error.name.message %>
             </div>
           <% } %>
         </div>
 
         <div class="mb-3">
           <label for="bio" class="form-label fw-semibold">Bio <span class="text-body-secondary small fw-normal"> (opicional) </span></label>
-          <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Insira uma Bio interessante..." required></textarea>
+          <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Insira uma Bio interessante..."></textarea>
           <% if (typeof(error) !== "undefined" && error.bio) { %>
             <div id="bioErro" class="form-text text-danger fw-medium m-2 pt-1">
-              ⚠️ <%= error.bio %>
+              ⚠️ <%= error.bio.message %>
             </div>
           <% } %>
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
+          <label for="email" class="form-label fw-semibold">Email</label>
           <input
             type="email"
             class="form-control"
@@ -50,17 +49,17 @@
 
           <% if (typeof error !== "undefined") { %>
             <div id="emailError" class="form-text">
-              <%= error.email %>
+              <%= error.email.message %>
             </div>
           <% } %>
         </div>
 
         <div class="mb-4">
-          <label for="password" class="form-label">Senha</label>
+          <label for="password" class="form-label fw-semibold">Senha</label>
           <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required />
           <% if (typeof error !== "undefined") { %>
             <div id="passwordError" class="form-text">
-              <%= error.password %>
+              <%= error.password.message %>
             </div>
           <% } %>
         </div>
@@ -71,7 +70,7 @@
 
         <div class="text-center pt-2">
           <span>
-            Já tem uma conta? <a href="/signin" class="fw-medium">Faça Login</a>.
+            Já tem uma conta? <a href="/login" class="fw-medium">Faça Login</a>.
           </span>
         </div>
       </form>

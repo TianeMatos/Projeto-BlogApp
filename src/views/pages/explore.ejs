@@ -1,64 +1,88 @@
 <%- include('../partials/header') %> <%- include('../partials/nav') %>
-<section class="mx-5 mt-5">
+<section class="container mt-5">
   <div class="d-flex flex-column align-items-center justify-content-center">
-    <div class="w-75">
-      <div class="container">
-        <h2 class="py-2">Todos os Posts</h2>
-        <p class="pb-2">Descubra histórias, ideias e perspectiva de nossa comunidade.</p>
-        <div class="cards mt-4 ">
+    <div class="row pb-4 gap-1 justify-content-lg-between justify-content-md-center">
+      <div class="col-lg-8 col-md-12 order-lg-1 order-2">
+        <% if (posts.length === 0) { %>
+          <div class="pt-2 ps-2">
+            <h3 class="py-2">Nenhum Post Encontrado!</h3>
+          </div>
+        <% } else { %>
+          <h2 class="py-2">Todos os Posts</h2>
+          <p class="pb-2">Descubra histórias, ideias e perspectiva de nossa comunidade.</p>
+        <% } %>
+        <div class="cards mt-4">
           <% posts.forEach(post => { %>
-            <div class="card mb-4 shadow border-0">
-              <div class="row g-0 align-items-center">
-                
-                <!-- Image -->
-                <div class="col-md-4 px-3 py-3 text-center">
-                  <img 
-                    src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
-                    class="img-fluid rounded" 
-                    alt="Imagem do post"
-                  >
-                </div>
+             <div class="card mb-4 shadow border-0">
+               <div class="row g-0 align-items-center">
+                 
+                 <!-- Image -->
+                 <div class="col-md-4 px-3 py-3 text-center">
+                   <img 
+                     src=<%= !post.imageUrl ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %>
+                     class="img-fluid rounded" 
+                     alt="Imagem do post"
+                   >
+                 </div>
 
-                <!-- Body -->
-                <div class="col-md-7">
-                  <div class="card-body">
+                 <!-- Body -->
+                 <div class="col-md-7">
+                   <div class="card-body">
 
-                    <!-- Title -->
-                    <h5 class="card-title mt-2">
-                      <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
-                    </h5>
+                     <!-- Title -->
+                     <h5 class="card-title mt-2">
+                       <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
+                     </h5>
 
-                    <!-- Description -->
-                    <p class="card-text text-body-secondary mb-2">
-                      <%= post.content.slice(0, 100) %> 
-                    </p>
+                     <!-- Description -->
+                     <p class="card-text text-body-secondary mb-2">
+                       <%= post.content.slice(0, 100) %> 
+                     </p>
 
-                    <!-- Footer -->
-                    <div class="d-flex justify-content-between align-items-center mt-5">
+                     <!-- Footer -->
+                     <div class="d-flex justify-content-between align-items-center mt-5">
 
-                      <!-- Author -->
-                      <div class="d-flex align-items-center">
-                        <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="" style="width: 20px;">
-                        <small class="text-body-secondary ms-3"><%= post.author.name %></small>
-                      </div> 
+                       <!-- Author -->
+                       <div class="d-flex align-items-center">
+                         <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Imagem do Perfil" style="width: 20px;">
+                         <small class="text-body-secondary ms-3"><%= post.author.name %></small>
+                       </div> 
 
-                      <!-- Infos -->
-                      <div class="d-flex gap-3 text-body-secondary small">
-                        <!-- <span>8 min</span> -->
-                        <span>💬 <%= post.commentsCount %></span>
-                        <span class="text-body-secondary"
-                          >📆 <%= new Date(post.createdAt).toLocaleString("en-US", { dateStyle: "medium" }) %>
-                        </span>
-                      </div>
+                       <!-- Infos -->
+                       <div class="d-flex gap-3 text-body-secondary small">
+                         <!-- <span>8 min</span> -->
+                         <span>💬 <%= post.commentsCount %></span>
+                         <span class="text-body-secondary"
+                           >📆 <%= new Date(post.createdAt).toLocaleString("pr-BR", { dateStyle: "medium" }) %>
+                         </span>
+                       </div>
 
-                    </div>
+                     </div>
 
-                  </div>
-                </div>
+                   </div>
+                 </div>
 
-              </div>
+               </div>
+             </div>
+           <% }) %>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-12 order-lg-2 order-1 align-self-center">
+        <div class="row justify-content-lg-center justify-content-md-between">
+          <div class="col-lg-auto col-md-5 card mb-4 p-4 shadow border-0">
+            <h4>Pesquisar</h4>
+            <form action="/posts/?search" class="d-flex my-3" role="search">
+              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+          <div class="col-lg-auto col-md-5 card mb-4 py-4 px-5 shadow border-0">
+            <h4>Filtrar</h4>
+            <div class="links list-group gap-2 my-2">
+              <a href="/posts?search=<%= search %>&sort=recent" class="list-group-item list-group-item-action border-0 text-dark">Mais Recentes</a>
+              <a href="/posts?search=<%= search %>&sort=comments" class="list-group-item list-group-item-action border-0 text-dark">Mais Comentados</a>
             </div>
-          <% }) %>
+          </div>
         </div>
       </div>
     </div>
