@@ -1,7 +1,7 @@
 <%- include('../partials/header') %> <%- include('../partials/nav') %>
-<section class="mx-5 mt-5 pb-5">
+<section class="m-lg-5 m-md-5 m-sm-4 m-4 pb-5">
   <div class="row align-items-center justify-content-center">
-    <div class="content col-9">
+    <div class="content col-lg-11 col-md-11 col-sm-12">
 
       <!-- Title -->
        <h1 class="card-title py-3">
@@ -10,16 +10,18 @@
 
       <!-- Info -->
        <div class="info py-3">
-        <div class="d-flex align-items-center">
-          <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 35px;">
-          <span class=" fw-semibold ms-3"><%= post.author.name %></span>
-          <span class="ms-3">•</span>
-          <span class="text-body-secondary ms-3"> 
+        <div class="d-flex align-items-center column-gap-3 row-gap-3 flex-wrap">
+          <div class="d-flex align-items-center">
+            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 35px;">
+            <span class=" fw-semibold ms-3"><%= post.author.name %></span>
+          </div>
+          <span>•</span>
+          <span class="text-body-secondary"> 
             <span class=" fw-medium">Publicado em:</span> 
             <%= new Date(post.createdAt).toLocaleString("pt-BR", { dateStyle: "long" }) %>
           </span>
-          <span class="ms-3">•</span>
-          <span class="text-body-secondary ms-3">
+          <span>•</span>
+          <span class="text-body-secondary">
             <span class=" fw-medium">Atualizado em:</span> 
             <%= new Date(post.updatedAt).toLocaleString("pt-BR", { dateStyle: "long" }) %>
           </span>
@@ -45,7 +47,7 @@
       </div>
 
     </div>
-    <div class="comments card col-8 mt-4 mb-3 shadow border-0">
+    <div class="comments card col-lg-11 col-md-11 col-sm-11 col-12 mt-4 mb-3 shadow border-0">
       <div class="card p-4 border-0">
         <h3>Comentários (<%= comments.length %>)</h3>
         <% if (user !== null) { %>
@@ -73,32 +75,35 @@
         <% } %>
       </div>
       <div class="card gap-3 mt-2 mb-4 mx-4 py-4 border overflow-y-auto" style="width: auto; height: min-content; max-height: 500px;">
-        <% comments.forEach((comment, i) => { %>
-          <div class="d-flex gap-3 px-2 align-items-center">
-            
-            <!-- Avatar -->
-            <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary rounded-circle text-light fw-semibold fs-5" style="height: 50px; width: 50px;">
-              <%= comment.author.name.charAt(0).toUpperCase() %>
-            </div>
-
-            <div class="flex-grow-1 comment">
-              <div class="comment-info">
-                <span class="fw-medium small"><%= comment.author.name %></span>
-                <span class="mx-1">•</span>
-                <span class="comment-date small me-4 text-body-secondary" data-date="<%= comment.createdAt %>"></span>
-                <% if (comment.author.name === post.author.name) { %>
-                 <div class="badge rounded-pill text-bg-info text-primary-emphasis text-start">Autor</div>
-                <% } %>
+        <% if (comments.length > 0) { %>
+          <% comments.forEach((comment, i) => { %>
+            <div class="d-flex gap-3 px-2 align-items-center">
+              <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary rounded-circle text-light fw-semibold fs-5" style="height: 50px; width: 50px;">
+                <%= comment.author.name.charAt(0).toUpperCase() %>
               </div>
-              <div class="comment-text small ms-1">
-                <%= comment.text %>
+              <div class="flex-grow-1 comment">
+                <div class="comment-info">
+                  <span class="fw-medium small"><%= comment.author.name %></span>
+                  <span class="mx-1">•</span>
+                  <span class="comment-date small me-4 text-body-secondary" data-date="<%= comment.createdAt %>"></span>
+                  <% if (comment.author.name === post.author.name) { %>
+                  <div class="badge rounded-pill text-bg-info text-primary-emphasis text-start">Autor</div>
+                  <% } %>
+                </div>
+                <div class="comment-text small ms-1">
+                  <%= comment.text %>
+                </div>
               </div>
             </div>
+            <% if ((i + 1) < comments.length) { %>
+              <hr>
+            <% } %>
+          <% }); %>
+        <% } else { %>
+          <div class="text-center">
+            <h6>Post sem Comentários.</h6>
           </div>
-          <% if ((i + 1) < comments.length) { %>
-            <hr>
-          <% } %>
-        <% }); %>
+        <% } %>
       </div>
     </div>
   </div>

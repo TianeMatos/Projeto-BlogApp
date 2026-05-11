@@ -32,7 +32,6 @@ const postController = {
   
       res.status(200).render('./pages/explore', { title: "Explorar", posts, search, sort, page: Number(page), totalPages });
     } catch (error) {
-      console.log("Error: ", error.message);
       const err = new Error("Erro ao Buscar Todos os Posts");
       err.status = 400; 
       next(err);
@@ -58,7 +57,6 @@ const postController = {
     try {
       res.status(200).render('./pages/createPost', { title: "Criar Novo Post", error: undefined });
     } catch (error) {
-      console.log("Error: ", error.message);
       const err = new Error("Erro ao Renderizar Página de Criação de Posts");
       err.status = 400; 
       next(err);
@@ -78,7 +76,6 @@ const postController = {
       const comments = await Comment.find({ post: req.params.postId }).sort({ createdAt: -1 }).populate({ path: "author", select: "_id name"}).lean();
       res.status(200).render('./pages/post', { title: post.title, post, comments });
     } catch (error) {
-      console.log("Error: ", error.message);
       const err = new Error("Erro ao Renderizar Página de um Post");
       err.status = 400; 
       next(err);
@@ -96,7 +93,6 @@ const postController = {
       await Post.findByIdAndUpdate(req.params.postId, { $inc: { commentsCount: 1 } } ).lean();
       res.redirect(`/posts/${req.params.postId}`);
     } catch (error) {
-      console.log("Error: ", error.message);
       const err = new Error("Erro ao Publicar um Comentário");
       err.status = 400; 
       next(err);
@@ -135,7 +131,6 @@ const postController = {
       ).lean();
       res.status(200).redirect(`/posts/${req.params.postId}`);
     } catch (error) {
-      console.log("Error: ", error.message);
       const err = new Error("Erro ao Editar um Post");
       err.status = 400; 
       next(err);
@@ -160,7 +155,6 @@ const postController = {
 
       res.status(200).render('./pages/editPost', { title: `Editar Post`, post });
     } catch (error) {
-      console.log("Error: ", error);
       const err = new Error("Erro ao Renderizar Página de Edição de Posts");
       err.status = 400; 
       next(err);

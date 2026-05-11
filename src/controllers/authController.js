@@ -21,7 +21,6 @@ const authController = {
 
       return res.status(200).redirect('/');
     } catch (error) {
-      console.log(error);
       const err = new Error("Erro ao Fazer Login");
       err.status = 400; 
       next(err);
@@ -32,7 +31,6 @@ const authController = {
     try {
       res.status(200).render('./pages/login', { title: "Login" });
     } catch (error) {
-      console.log(error);
       const err = new Error("Erro ao Tentar Fazer Login");
       err.status = 400; 
       next(err);

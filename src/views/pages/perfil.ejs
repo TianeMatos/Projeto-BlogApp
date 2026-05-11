@@ -3,8 +3,8 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-12 px-0">
       <div class="card text-bg-dark rounded-0">
-        <img src="/images/fundoPerfil.png" class="card-img imageFundoPerfil" alt="Fundo do Perfil">
-        <div class="perfilCardBody d-flex gap-lg-5 gap-md-4 gap-sm-3 p-lg-5 p-md-4 p-sm-5 mx-5 flex-wrap align-items-center card-img-overlay">
+        <img src="/images/fundoPerfil.png" class="card-img imageFundoPerfil pb-2" alt="Fundo do Perfil">
+        <div class="perfilCardBody d-flex gap-lg-5 gap-md-4 gap-sm-3 p-lg-5 p-md-4 p-sm-4 p-4 mx-lg-5 mx-md-4 mx-sm-3  flex-wrap align-items-center card-img-overlay">
           <div class="flex-shrink-0">
             <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle imagePerfil" alt="Image Perfil">
           </div>
@@ -13,7 +13,8 @@
             <p class="card-text"><%= profileUser.bio || "Atualize sua Bio" %></p>
           </div>
           <div class="align-self-end ms-auto">
-            <a href="/users/<%= profileUser._id %>/edit" class="btn btn-outline-light">Editar Perfil</a>
+            <a href="/users/<%= profileUser._id %>/edit" class="btn btn-outline-light ms-2 my-3">Editar Perfil</a>
+            <a href="/posts/new" class="btn btn-info ms-2 mty-3">Criar Novo Post</a>
           </div>
         </div>
       </div>
