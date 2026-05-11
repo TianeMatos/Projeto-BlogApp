@@ -31,6 +31,10 @@ body {
   min-height: 330px;
 }
 
+.titleError {
+  font-size: clamp(1em, 1vw + 7rem, 10em)
+}
+
 @media (max-width: 768px) {
   .imagePerfil {
     width: 65px;

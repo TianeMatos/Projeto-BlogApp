@@ -5,10 +5,11 @@ const postController = {
   getAllPosts: async (req, res, next) => {
     try {
       const { search = "", sort = "recent", page = 1 } = req.query;
-  
+      const pageNumber = Math.max(1, parseInt(page) || 1);
+
       // Pagination
       const limit = 2; // Test
-      const skip = (page - 1) * limit;
+      const skip = (pageNumber - 1) * limit;
   
       // Filter
       const query = {};
@@ -144,6 +145,12 @@ const postController = {
   getUpdatePost: async (req, res, next) => {
     try {
       const post = await Post.findById(req.params.postId).lean();
+
+      if (!post) {
+        const err = new Error("Post Não Encontrado!");
+        err.status = 404; 
+        return next(err);
+      }
 
       if (post.author.toString() !== req.user.id) {
         const err = new Error("Acesso Negado");

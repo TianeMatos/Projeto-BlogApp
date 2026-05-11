@@ -22,8 +22,8 @@ const app = express();
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, './src/public')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 // Use Middleware
@@ -36,7 +36,7 @@ app.get('/', async (req, res, next) => {
     res.status(200).render('./pages/home', { title: "Home", posts: popularPosts });
   } catch (error) {
     const err = new Error("Erro ao Renderizar Página Inícial");
-    err.status = 422; 
+    err.status = 500; 
     next(err);
   }
 });
@@ -56,6 +56,12 @@ app.get('/about', (req, res, next) => {
 app.use('/posts', postRouter);
 app.use('/', authRouter)
 app.use('/users', userRouter);
+
+app.use((req, res, next) => {
+  const err = new Error("Página Não Encontrada");
+  err.status = 404;
+  next(err);
+});
 
 app.use((err, req, res, next) => {
   console.error("Erro Detectado:", err.stack);

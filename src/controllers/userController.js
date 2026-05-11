@@ -4,22 +4,22 @@ const Post = require("../model/Post");
 const userController = {
   register: async (req, res, next) => {
     try {
-      const body = req.body;
-      const user = await User.create(body);
+      const { name, email, password } = req.body;
+      await User.create({ name, email, password });
       res.status(200).redirect('/login');
     } catch (error) {
       if (error.name === 'ValidationError') {
-            return res.status(400).render('./pages/register', {
-                title: "Cadastro",
-                error: error.errors
-            });
+        return res.status(400).render('./pages/register', {
+            title: "Cadastro",
+            error: error.errors
+        });
       }
 
       if (error.code === 11000) {
-            return res.status(400).render('./pages/register', {
-                title: "Cadastro",
-                error: { email: { message: "Este e-mail já está cadastrado." } }
-            });
+        return res.status(400).render('./pages/register', {
+            title: "Cadastro",
+            error: { email: { message: "Este e-mail já está cadastrado." } }
+        });
       }
       const err = new Error("Erro ao Registrar Usuário");
       err.status = 400; 

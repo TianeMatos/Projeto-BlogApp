@@ -4,7 +4,7 @@ const User = require('../model/User');
 
 const identifyUser = async (req, res, next) => {
   const token = req.cookies.t;
-  res.user = null;
+  req.user = null;
   res.locals.user = null;
 
   if (!token) {

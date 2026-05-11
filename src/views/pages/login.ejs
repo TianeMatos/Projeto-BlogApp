@@ -19,20 +19,14 @@
             required
             aria-errormessage="emailError"
           />
-
-          <% if (typeof(error) !== "undefined") { %>
-            <div id="emailError" class="form-text">
-              <%= error.email %>
-            </div>
-          <% } %>
         </div>
 
         <div class="mb-4">
           <label for="password" class="form-label">Senha</label>
-          <input type="password" class="form-control" id="password" name="password" aria-errormessage="passwordError" required/>
+          <input type="password" class="form-control" id="password" name="password" required/>
           <% if (typeof(error) !== "undefined") { %>
-            <div id="passwordError" class="form-text">
-              <%= error.password || error %>
+            <div class="form-text">
+              <%= error.email || error.password || error %>
             </div>
           <% } %>
         </div>
