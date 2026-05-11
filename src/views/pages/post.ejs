@@ -14,12 +14,20 @@
           <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 35px;">
           <span class=" fw-semibold ms-3"><%= post.author.name %></span>
           <span class="ms-3">•</span>
-          <span class="text-body-secondary ms-3"><%= new Date(post.createdAt).toLocaleString("pt-BR", { dateStyle: "long" }) %></span>
+          <span class="text-body-secondary ms-3"> 
+            <span class=" fw-medium">Publicado em:</span> 
+            <%= new Date(post.createdAt).toLocaleString("pt-BR", { dateStyle: "long" }) %>
+          </span>
+          <span class="ms-3">•</span>
+          <span class="text-body-secondary ms-3">
+            <span class=" fw-medium">Atualizado em:</span> 
+            <%= new Date(post.updatedAt).toLocaleString("pt-BR", { dateStyle: "long" }) %>
+          </span>
         </div>   
        </div>
 
        <!-- Image -->
-      <div class="my-5 py-3 text-center">
+      <div class="my-4 py-3 text-center">
         <img 
           src=<%= !post.imageUrl ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
           class="img-fluid rounded" 

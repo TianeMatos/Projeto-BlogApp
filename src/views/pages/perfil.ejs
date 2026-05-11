@@ -3,12 +3,12 @@
   <div class="row align-items-center justify-content-center">
     <div class="col-12 px-0">
       <div class="card text-bg-dark rounded-0">
-        <img src="/images/fundoPerfil.png" class="card-img" alt="Fundo do Perfil" style="height: 250px;">
-        <div class="d-flex gap-5 p-5 mx-5 flex-wrap align-items-center card-img-overlay">
+        <img src="/images/fundoPerfil.png" class="card-img imageFundoPerfil" alt="Fundo do Perfil">
+        <div class="perfilCardBody d-flex gap-lg-5 gap-md-4 gap-sm-3 p-lg-5 p-md-4 p-sm-5 mx-5 flex-wrap align-items-center card-img-overlay">
           <div class="flex-shrink-0">
-            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 100px;">
+            <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle imagePerfil" alt="Image Perfil">
           </div>
-          <div>
+          <div class="">
             <h4 class="card-title"><%= profileUser.name %></h4>
             <p class="card-text"><%= profileUser.bio || "Atualize sua Bio" %></p>
           </div>
@@ -18,15 +18,15 @@
         </div>
       </div>
     </div>
-    <div class="col-10 p-5">
+    <div class="col-lg-10 col-md-12 col-sm-11 col-12 p-5">
       <h2>Seus Posts</h2>
       <div class="cards mt-5">
         <% posts.forEach(post => { %>
-          <div class="card mb-4 shadow border-0  rounded">
+          <div class="card py-3 mt-4 shadow border-0 rounded">
             <div class="row g-0 align-items-center">
               
               <!-- Image -->
-              <div class="col-md-4 px-3 py-3 text-center">
+              <div class="col-lg-4 col-md-4 px-3 text-center">
                 <img 
                   src=<%= post.imageUrl === undefined ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %> 
                   class="img-fluid rounded" 
@@ -35,35 +35,42 @@
               </div>
 
               <!-- Body -->
-              <div class="col-md-7">
+              <div class="col-lg-8 col-md-8">
                 <div class="card-body">
 
                   <!-- Title -->
-                  <h5 class="card-title mt-2">
-                    <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
-                  </h5>
+                  <div class="d-flex align-items-center justify-content-between pb-2">
+                    <h5 class="card-title mt-2 ">
+                      <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
+                    </h5>
+                    
+                  </div>
 
                   <!-- Description -->
                   <p class="card-text text-body-secondary mb-2">
-                    <%= post.content.slice(0, 100) %> 
+                    <%= post.content.slice(0, 120) %> 
                   </p>
 
                   <!-- Footer -->
-                  <div class="d-flex justify-content-between align-items-center mt-5">
+                  <div class="d-flex flex-wrap gap-4 justify-content-between align-items-center pt-4">
 
                     <!-- Author -->
                     <div class="d-flex align-items-center">
-                      <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle" alt="Image Perfil" style="width: 20px;">
+                      <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle imageAuthor" alt="Image Perfil Autor">
                       <small class="text-body-secondary ms-3"><%= profileUser.name %></small>
                     </div> 
 
                     <!-- Infos -->
-                    <div class="d-flex gap-3 text-body-secondary small">
+                    <div class="d-flex text-body-secondary small">
                       <!-- <span>8 min</span> -->
-                      <span>💬 <%= post.commentsCount %></span>
-                      <span class="text-body-secondary"
-                        >📆 <%= new Date(post.createdAt).toLocaleString("en-US", { dateStyle: "medium" }) %>
+                      <span>💬<%= post.commentsCount %></span>
+                      <span class="text-body-secondary ms-3"
+                        >📆<%= new Date(post.updatedAt).toLocaleString("pt-BR", { dateStyle: "medium" }) %>
                       </span>
+                    </div>
+
+                    <div class="align-self-end">
+                      <a href="/posts/<%= post._id %>/edit" class="btn btn-outline-info text-primary-emphasis border-2">Editar Post</a>
                     </div>
 
                   </div>

@@ -9,43 +9,46 @@ const connectDB = require('./src/config/database');
 // Connection With DB
 connectDB();
 
-// User Model
-// const User = require('./src/model/User');
+// Routes
 const userRouter = require('./src/routes/user');
 const authRouter = require('./src/routes/authentication');
 const postRouter = require('./src/routes/post');
 const identifyUser = require('./src/middleware/identifyUser');
+// Model
+const Post = require('./src/model/Post');
 
 const app = express();
 
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, './src/public')));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Parse the Cookie header
-// cookieParser populates req.cookies with an object keyed by the cookie names.
 app.use(cookieParser());
 app.use(methodOverride('_method'));
-
+// Use Middleware
 app.use(identifyUser);
 
 // Get Home Page
-app.get('/', (req, res) => {
+app.get('/', async (req, res, next) => {
   try {
-    res.status(200).render('./pages/home', { title: "Home" });
+    const popularPosts = await Post.find({}).sort({ commentsCount: -1 }).limit(4).populate("author", "name").lean();
+    res.status(200).render('./pages/home', { title: "Home", posts: popularPosts });
   } catch (error) {
-    next("Erro ao Renderizar Página Inicial");
+    const err = new Error("Erro ao Renderizar Página Inícial");
+    err.status = 422; 
+    next(err);
   }
 });
 
 // Get About Page
-app.get('/about', (req, res) => {
+app.get('/about', (req, res, next) => {
   try {
     res.status(200).render('./pages/about', { title: "Sobre" });
   } catch (error) {
-    next("Erro ao Renderizar Página Sobre");
+    const err = new Error("Erro ao Renderizar Página Sobre");
+    err.status = 422; 
+    next(err);
   }
 });
 

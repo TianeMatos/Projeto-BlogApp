@@ -1,23 +1,66 @@
 <%- include('../partials/header') %>
 <%- include('../partials/nav') %>
   <div class="container-lg">
-    <div class="row p-5 justify-content-md-center align-items-center">
-      <div class="col-5 mt-5 ">
+    <div class="row p-lg-5 p-md-4 p-sm-3 p-4 justify-content-center align-items-center">
+      <div class="col-lg-5 col-md-6 col-sm-6 mt-5 text-center">
         <p class="text-primary fw-semibold text-uppercase"><%= user ? "Bem-Vindo de volta, " + user.name + "!" + "👋" : "Bem-Vindo ao BlogApp!" %></p>
         <h1 class="pt-2 text-primary-emphasis">Compartilhe Ideias.</h1>
         <h1 class="text-primary ">Inspire o Mundo.</h1>
         <p class="pt-3 mt-3">Publique seus pensamentos, conecte-se com as pessoas e descubra histórias incriveis todos os dias.</p>
         <div class="buttons mt-5">
           <% if (typeof user === "undefined" || user === null) { %>
-            <a class="btn btn-primary p-3 fw-semibold me-3 mb-3" href="/users/register">Começar Agora</a>
+            <a class="btn btn-primary p-3 fw-semibold mb-3" href="/users/register">Começar Agora</a>
           <% } else { %>
-            <a class="btn btn-primary p-3 fw-semibold mb-3" href="/posts/createPost">Criar Novo Post</a>
+            <a class="btn btn-primary p-3 fw-semibold mb-3 ms-lg-3 ms-md-3 ms-sm-0" href="/posts/new">Criar Novo Post</a>
           <% } %>
-          <a class="btn btn-outline-primary p-3 fw-semibold mb-3" href="/posts">Explorar Posts</a>
+          <a class="btn btn-outline-primary p-3 fw-semibold mb-3 ms-lg-3 ms-md-3 ms-sm-0" href="/posts">Explorar Posts</a>
         </div>
       </div>
-      <div class="col-7">
-        <img class=" img-fluid rounded" src="./images/homeImage.jpg" alt="Imagem da Home" style="width: 100%">
+      <div class="divImageHome col-lg-7 col-md-5 col-sm-6">
+        <img class="img-fluid rounded" src="./images/homeImage.jpg" alt="Imagem da Home">
+      </div>
+    </div>
+    <div class="row px-lg-4 px-md-4 px-sm-3 p-4 pt-0">
+      <h2 class="col-12 py-2">Posts Mais Comentados</h2>
+      <div class="col-12">
+        <div class="cards row gap-2 gap-sm-2 mt-4 align-items-center justify-content-center">
+          <% posts.forEach(post => { %>
+            <div class="card homeCard shadow border-0">
+              <!-- Image -->
+              <div class="p-2 mt-2 text-center">
+                <img 
+                  src=<%= !post.imageUrl ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %>
+                  class="card-img-top rounded" 
+                  alt="Imagem do post"
+                >
+              </div>
+              <!-- Body -->
+              <div class="card-body p-2">
+                <h5 class="card-title">
+                  <a class="link-offset-2 link-underline link-underline-opacity-0 text-primary-emphasis" href="/posts/<%= post._id %>"><%= post.title %></a>
+                </h5>
+              </div>
+              <!-- Footer -->
+              <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center py-4 px-3">
+
+                <!-- Author -->
+                <div class="d-flex align-items-center">
+                  <img src="/images/ImagePerfil.png" class="img-fluid rounded-circle imageAuthor" alt="Image Perfil Autor">
+                  <small class="text-body-secondary ms-3"><%= post.author.name %></small>
+                </div> 
+
+                <!-- Infos -->
+                <div class="d-flex gap-3 text-body-secondary small">
+                  <span>💬 <%= post.commentsCount %></span>
+                  <span class="text-body-secondary"
+                    >📆 <%= new Date(post.updatedAt).toLocaleString("pr-BR", { dateStyle: "medium" }) %>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          <% }) %>
+        </div>
       </div>
     </div>
   </div>

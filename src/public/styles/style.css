@@ -8,3 +8,56 @@ body {
 .imageLogo {
   width: 13%;
 }
+
+.imageFundoPerfil {
+  width: 100%;
+  height: 200px;
+}
+
+.imagePerfil {
+  width: 100px;
+}
+
+.imageAuthor {
+  width: 20px;
+}
+
+.imageLogin {
+  width: 100%;
+}
+
+.homeCard {
+  width: 250px;
+  min-height: 330px;
+}
+
+@media (max-width: 768px) {
+  .imagePerfil {
+    width: 65px;
+  }
+
+  .imageFundoPerfil {
+    height: 270px;
+  }
+
+  .perfilCardBody {
+    justify-content: center;
+  }
+
+  .perfilCardBody div:last-child {
+    margin-left: 0 !important;
+  }
+}
+
+@media (max-width: 575px) {
+  .divImageHome, .imageLogin, .imageRegister {
+    display: none;
+  }
+}
+
+@media (max-width: 555px) {
+  .homeCard {
+    width: 220px;
+    min-height: 304px;
+  }
+}

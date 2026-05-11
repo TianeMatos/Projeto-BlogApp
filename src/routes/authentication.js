@@ -8,7 +8,7 @@ const router = Router();
 // POST /auth/login - User sign-in
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).lean();
     
     if (!user){
       return res.status(404).render('./pages/login', { title: "Login", error: "Erro ao Fazer Login" });
@@ -19,12 +19,15 @@ router.post('/login', async (req, res) => {
       return res.status(401).render('./pages/login', { title: "Login", error: "Erro ao Fazer Login" });
     }
 
-    const token = jwt.sign({ _id: user._id }, config.jwtSecret);
-    res.cookie("t", token, { httpOnly: true, maxAge: 3600000 });
+    const token = jwt.sign({ _id: user._id }, config.jwtSecret, { expiresIn: "1h" });
+    res.cookie("t", token, { httpOnly: true, sameSite: "strict", maxAge: 3600000 });
 
     return res.status(200).redirect('/');
   } catch (error) {
     console.log(error);
+    const err = new Error("Erro ao Fazer Login");
+    err.status = 400; 
+    next(err);
   }
 });
 
