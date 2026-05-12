@@ -24,13 +24,36 @@ body {
   width: 20px;
 }
 
-.imageLogin {
+.imageAuthorPost {
+  width: 35px;
+}
+
+.imageLogin, .imageRegister, .imageEditPerfil {
   width: 100%;
+}
+
+.fullImagePost {
+  max-width: 680px;
+}
+
+.authorComment { 
+  height: 50px; 
+  width: 50px;
+}
+
+.cardComment {
+  width: auto; 
+  height: min-content; 
+  max-height: 500px;
 }
 
 .homeCard {
   width: 250px;
   min-height: 330px;
+}
+
+.divImagePostMoreComments {
+  min-height: 132.66px;
 }
 
 .titleError {

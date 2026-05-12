@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const config = require('./src/config/config');
 const methodOverride = require('method-override');
+const helmet = require('helmet');
 const connectDB = require('./src/config/database');
 
 // Connection With DB
@@ -24,6 +25,17 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "https://cdn.jsdelivr.net"],
+      scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https://cdn.jsdelivr.net"],
+    }
+  }
+}));
 app.use(identifyUser);
 
 // Routes

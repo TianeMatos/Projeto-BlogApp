@@ -1,94 +1,102 @@
-# Projeto Blog Node.js + MongoDB
+# Projeto BlogApp 📝
 
-Aplicação de blog desenvolvida em Node.js com Express, EJS e MongoDB. Permite cadastro de usuários, login, criação de posts, comentários, edição de perfil e navegação por posts populares e recentes.
+Aplicação de blog completa desenvolvida com Node.js, Express, EJS e MongoDB. Permite cadastro e autenticação de usuários, criação e edição de posts com tags e imagem, comentários, busca com paginação e navegação por posts populares.
 
-## Funcionalidades
+---
 
-- Autenticação de usuário com login e logout
-- Cadastro de novos usuários
-- Criação de posts com título, conteúdo, tags e imagem
-- Edição de posts e perfil de usuário
-- Comentários em posts
-- Página inicial com posts mais populares
-- Página de exploração com busca, ordenação e paginação de posts
-- Rotas protegidas para criação e edição usando middleware
+## 📸 Preview
+  <img src="./src/public/images/About-BlogApp!.gif" alt="Gif Mostrando o Site" width="700">
 
-## Tecnologias
+---
 
-- Node.js
-- Express
-- MongoDB / Mongoose
-- EJS
-- bcrypt
-- jsonwebtoken
-- cookie-parser
-- method-override
-- dotenv
-- nodemon (dev)
+## ✨ Funcionalidades
 
-## Estrutura do projeto
+- 🔐 Autenticação com JWT via cookie (login e logout)
+- 📝 Cadastro de usuários com validação
+- ✍️ Criação de posts com título, conteúdo, tags e imagem
+- ✏️ Edição de posts e perfil de usuário
+- 💬 Comentários em posts
+- 🏠 Página inicial com os posts mais populares
+- 🔍 Exploração de posts com busca, ordenação e paginação
+- 🛡️ Rotas protegidas via middleware de autenticação
 
-- `index.js` - arquivo principal do servidor
-- `src/config/` - configuração de ambiente e conexão com MongoDB
-- `src/model/` - modelos Mongoose (`User`, `Post`, `Comment`)
-- `src/routes/` - rotas de autenticação, posts e usuários
-- `src/middleware/` - middleware de identificação de usuário e proteção de rotas
-- `src/views/` - templates EJS de páginas e parciais
-- `src/public/` - arquivos estáticos (CSS, JS, imagens)
+---
 
-## Requisitos
+## 🛠️ Tecnologias
 
-- Node.js instalado
-- MongoDB em execução localmente ou URI MongoDB disponível
+| Tecnologia | Uso |
+|---|---|
+| Node.js + Express | Servidor e roteamento |
+| MongoDB + Mongoose | Banco de dados |
+| EJS | Template engine |
+| bcrypt | Hash de senhas |
+| jsonwebtoken | Autenticação JWT |
+| cookie-parser | Leitura de cookies |
+| method-override | Suporte a PUT/DELETE em formulários |
+| helmet | Headers de segurança HTTP |
+| dotenv | Variáveis de ambiente |
+| nodemon | Hot-reload em desenvolvimento |
 
-## Instalação
+## 📁 Estrutura do projeto
 
-1. Instale as dependências:
+- `index.js` — Ponto de entrada, configuração do servidor
+- `src/config/` — Variáveis de ambiente e conexão com MongoDB
+- `src/controllers/` — Lógica de negócio (auth, posts, usuários)
+- `src/model/` — Modelos Mongoose (User, Post, Comment)
+- `src/routes/` — Definição das rotas da aplicação
+- `src/middleware/` — Identificação de usuário e proteção de rotas
+- `src/views/` — Templates EJS (páginas e parciais)
+- `src/public/` — Arquivos estáticos (CSS, JS, imagens)
 
-```bash
-npm install
-```
+---
 
-2. Configure variáveis de ambiente (opcional):
+## 🗺️ Rotas
+> ✅ Requer autenticação &nbsp;|&nbsp; ❌ Pública
 
-- `PORT` - porta do servidor (padrão `3000`)
-- `JWT_SECRET` - segredo JWT para autenticação 
-- `MONGODB_URI` - URI do MongoDB (padrão `mongodb://localhost/projetcBlog`)
+### Páginas
 
-Você pode criar um arquivo `.env` e carregar essas variáveis ou definir no ambiente.
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/` | Página inicial com posts populares | ❌ |
+| GET | `/about` | Página sobre | ❌ |
 
-## Executando
+### Autenticação
 
-Inicie o servidor em modo de desenvolvimento:
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/login` | Página de login | ❌ |
+| POST | `/login` | Autenticar usuário | ❌ |
+| GET | `/logout` | Encerrar sessão | ✅ |
 
-```bash
-npm run dev
-```
+### Usuários
 
-Acesse em `http://localhost:3000`
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/users/register` | Página de cadastro | ❌ |
+| POST | `/users/register` | Criar novo usuário | ❌ |
+| GET | `/users/:userId` | Ver perfil | ✅ |
+| GET | `/users/:userId/edit` | Página de edição de perfil | ✅ |
+| PUT | `/users/:userId` | Atualizar perfil | ✅ |
 
-## Rotas principais
+### Posts
 
-- `GET /` - página inicial
-- `GET /about` - página sobre
-- `GET /posts` - explorar posts
-- `GET /posts/new` - criar novo post (usuário logado)
-- `GET /posts/:postId` - visualizar post
-- `POST /posts` - salvar novo post
-- `POST /posts/:postId/comments` - adicionar comentário
-- `GET /login` - página de login
-- `POST /login` - autenticar usuário
-- `GET /logout` - encerrar sessão
-- `GET /users/register` - página de cadastro
-- `POST /users/register` - criar usuário
-- `GET /users/:userId` - ver perfil de usuário
-- `PUT /users/:userId` - editar perfil (usuário logado)
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| GET | `/posts` | Explorar posts (busca + paginação) | ❌ |
+| GET | `/posts/new` | Página de criação de post | ✅ |
+| POST | `/posts` | Salvar novo post | ✅ |
+| GET | `/posts/:postId` | Visualizar post | ❌ |
+| GET | `/posts/:postId/edit` | Página de edição de post | ✅ |
+| PUT | `/posts/:postId` | Atualizar post | ✅ |
+| POST | `/posts/:postId/comments` | Adicionar comentário | ✅ |
 
-## Observações
 
-- As rotas de criação e edição dependem de autenticação via cookie JWT.
-- O projeto usa `method-override` para permitir métodos HTTP como `PUT` e `DELETE` em formulários HTML.
+---
 
-## Contato
+## 👤 Autora
 
-Este README foi gerado para documentar o projeto de blog em Node.js e MongoDB.
+Feito por **[Tiane Matos](https://github.com/TianeMatos)**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/tiane-matos)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/TianeMatos)
+

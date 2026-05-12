@@ -27,9 +27,9 @@
           <% posts.forEach(post => { %>
             <div class="card homeCard shadow border-0">
               <!-- Image -->
-              <div class="p-2 mt-2 text-center">
+              <div class="p-2 mt-2 text-center divImagePostMoreComments">
                 <img 
-                  src=<%= !post.imageUrl ? "https://loremflickr.com/900/500/" + post.tags : post.imageUrl %>
+                  src=<%= post.imageUrl %>
                   class="card-img-top rounded" 
                   alt="Imagem do post"
                 >
