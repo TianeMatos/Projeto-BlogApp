@@ -1,6 +1,7 @@
 # Projeto BlogApp 📝
 
 Aplicação de blog completa desenvolvida com Node.js, Express, EJS e MongoDB. Permite cadastro e autenticação de usuários, criação e edição de posts com tags e imagem, comentários, busca com paginação e navegação por posts populares.
+Acesse o **[BlogApp!]([https://github.com/TianeMatos](https://blogapp-7bgk.onrender.com))**
 
 ---
 
