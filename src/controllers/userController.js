@@ -4,8 +4,8 @@ const Post = require("../model/Post");
 const userController = {
   register: async (req, res, next) => {
     try {
-      const { name, email, password } = req.body;
-      await User.create({ name, email, password });
+      const { name, bio, email, password } = req.body;
+      await User.create({ name, bio, email, password });
       res.status(200).redirect('/login');
     } catch (error) {
       if (error.name === 'ValidationError') {
